@@ -6,13 +6,13 @@ public class Note {
 
     private String title;
     private String content;
-    private Tag tag;
+    private Tag[] tags;
     private LocalDate creationDate = LocalDate.now();
 
-    public Note(String title, String content, Tag tag) {
+    public Note(String title, String content, Tag[] tags) {
         this.title = title;
         this.content = content;
-        this.tag = tag;
+        this.tags = tags;
     }
 
     public String getTitle() {
@@ -31,12 +31,12 @@ public class Note {
         this.content = content;
     }
 
-    public Tag getTag() {
-        return tag;
+    public Tag[] getTags() {
+        return tags;
     }
 
-    public void setTag(Tag tag) {
-        this.tag = tag;
+    public void setTags(Tag[] tags) {
+        this.tags = tags;
     }
 
     public LocalDate getCreationDate() {
