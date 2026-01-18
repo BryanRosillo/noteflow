@@ -13,12 +13,12 @@ public class NoteTest {
     public void create_a_valid_note_with_tags(){
         String title = "Do my Homework";
         String content = "I must end my math homework on typical operations.";
-        Tag tag = new Tag("Homework");
+        Tag[] tags = new Tag[]{new Tag("Homework")};
 
-        Note note = new Note(title, content, tag);
+        Note note = new Note(title, content, tags);
 
         assertEquals(title, note.getTitle());
         assertEquals(content, note.getContent());
-        assertEquals(tag.getTagName(), note.getTag().getTagName());
+        assertEquals(tags[0].getTagName(), note.getTags()[0].getTagName());
     }
 }
