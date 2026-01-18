@@ -2,6 +2,9 @@ package com.darksoft.noteflow.backend.application.usecases;
 
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
+import com.darksoft.noteflow.backend.domain.entities.Tag;
+
+import java.util.Arrays;
 
 public class CreateNoteUseCase {
 
@@ -11,12 +14,14 @@ public class CreateNoteUseCase {
         this.repository = repository;
     }
 
-    public void createNote(CreateNoteCommand command){
+    public void execute(CreateNoteCommand command){
+
+        var tags = Arrays.stream(command.getTags()).map(Tag::new).toArray(Tag[]::new);
 
         Note note = new Note(
                 command.getTitle(),
                 command.getContent(),
-                command.getTags()
+                tags
         );
 
         this.repository.save(note);

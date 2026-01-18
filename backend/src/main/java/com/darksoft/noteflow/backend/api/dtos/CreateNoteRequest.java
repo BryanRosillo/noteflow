@@ -1,13 +1,11 @@
-package com.darksoft.noteflow.backend.application.usecases;
+package com.darksoft.noteflow.backend.api.dtos;
 
-import com.darksoft.noteflow.backend.domain.entities.Tag;
-
-public class CreateNoteCommand {
+public class CreateNoteRequest {
     private String title;
     private String content;
     private String[] tags;
 
-    public CreateNoteCommand(String title, String content, String[] tags) {
+    public CreateNoteRequest(String title, String content, String[] tags) {
         this.title = title;
         this.content = content;
         this.tags = tags;
