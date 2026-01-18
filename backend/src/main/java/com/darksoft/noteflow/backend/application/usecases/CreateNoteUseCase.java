@@ -3,9 +3,11 @@ package com.darksoft.noteflow.backend.application.usecases;
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.entities.Tag;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+@Service
 public class CreateNoteUseCase {
 
     private INoteRepository repository;

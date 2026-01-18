@@ -19,7 +19,6 @@ public class NoteController {
         this.createUseCase = createUseCase;
     }
 
-
     @PostMapping
     public ResponseEntity<Object> createNote(@RequestBody CreateNoteRequest request){
         var command = new CreateNoteCommand(
