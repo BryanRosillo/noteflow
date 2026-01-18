@@ -1,5 +1,8 @@
 package com.darksoft.noteflow.backend.domain.entities;
 
+import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
+import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
+
 import java.time.LocalDate;
 
 public class Note {
@@ -9,7 +12,12 @@ public class Note {
     private Tag[] tags;
     private LocalDate creationDate = LocalDate.now();
 
-    public Note(String title, String content, Tag[] tags) {
+    public Note(String title, String content, Tag[] tags) throws DomainException {
+
+        if(title.isBlank()){
+            throw new EmptyTitleException("The title of the note cannot be empty.");
+        }
+
         this.title = title;
         this.content = content;
         this.tags = tags;

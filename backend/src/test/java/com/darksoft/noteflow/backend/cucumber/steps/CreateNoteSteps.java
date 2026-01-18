@@ -124,7 +124,7 @@ public class CreateNoteSteps {
         var message = json.get("message");
 
         assertThat(message).isNotNull();
-        assertThat(message).isEqualTo("The title of the note cannot be empty.");
+        assertThat(message.asString()).isEqualTo("The title of the note cannot be empty.");
     }
 
 
