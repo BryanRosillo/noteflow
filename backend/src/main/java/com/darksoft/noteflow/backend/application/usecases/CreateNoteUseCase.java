@@ -16,7 +16,7 @@ public class CreateNoteUseCase {
         this.repository = repository;
     }
 
-    public void execute(CreateNoteCommand command){
+    public Note execute(CreateNoteCommand command){
 
         var tags = Arrays.stream(command.getTags()).map(Tag::new).toArray(Tag[]::new);
 
@@ -26,6 +26,6 @@ public class CreateNoteUseCase {
                 tags
         );
 
-        this.repository.save(note);
+        return this.repository.save(note);
     }
 }

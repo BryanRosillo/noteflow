@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface INoteRepository {
-    void save (Note note);
+    Note save (Note note);
 }

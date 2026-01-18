@@ -72,13 +72,13 @@ public class CreateNoteSteps {
         var tags = json.get("tags");
 
         assertThat(tags).isNotNull();
-        assertThat(tags.get(0).get("name").asString()).isEqualTo("Homework");
+        assertThat(tags.get(0).get("tagName").asString()).isEqualTo("Homework");
     }
 
     @And("the creation date is automatically set")
     public void the_creation_date_is_automatically_set() {
         var json = objectMapper.readTree(context.getResponse().getBody());
-        var createdDate = json.get("date");
+        var createdDate = json.get("creationDate");
         assertThat(createdDate).isNotNull();
     }
 }

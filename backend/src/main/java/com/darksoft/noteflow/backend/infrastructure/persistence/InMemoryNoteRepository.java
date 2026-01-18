@@ -12,7 +12,8 @@ public class InMemoryNoteRepository implements INoteRepository {
     private LinkedList<Note> notes = new LinkedList<>();
 
     @Override
-    public void save(Note note) {
+    public Note save(Note note) {
         notes.add(note);
+        return notes.getLast();
     }
 }

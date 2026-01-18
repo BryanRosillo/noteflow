@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/notes")
+@RequestMapping(value = "/notes", produces = "application/json")
 public class NoteController {
 
     private CreateNoteUseCase createUseCase;
@@ -27,7 +27,7 @@ public class NoteController {
                 request.getTags()
         );
 
-        this.createUseCase.execute(command);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Note created successfully.");
+        var noteCreated = this.createUseCase.execute(command);
+        return ResponseEntity.status(HttpStatus.CREATED).body(noteCreated);
     }
 }
