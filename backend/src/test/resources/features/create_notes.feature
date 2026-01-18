@@ -11,3 +11,10 @@ Feature: Create notes
     Then the note is created successfully
     And the note contains the assigned tags
     And the creation date is automatically set
+
+  Scenario: Create a note without a title
+    Given the user provides valid content
+    And the user does not provide a title
+    When the user saves the note
+    Then the system rejects the creation
+    And an error message indicates that the title is required

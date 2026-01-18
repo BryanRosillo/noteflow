@@ -28,6 +28,10 @@ public class CreateNoteSteps {
         this.objectMapper = objectMapper;
     }
 
+    // ======================
+    // Scenario: Create a valid note with tags
+    // ======================
+
     @Given("the user provides a valid title")
     public void the_user_provides_a_valid_title() {
         context.setNoteTitle("Do my homework");
@@ -54,7 +58,6 @@ public class CreateNoteSteps {
         mockMvc.perform(post("/notes")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestBody)))
-                .andExpect(status().isCreated())
                 .andDo(result ->
                         context.setResponse(new ResponseEntity<>(
                                 result.getResponse().getContentAsString(),
@@ -81,4 +84,48 @@ public class CreateNoteSteps {
         var createdDate = json.get("creationDate");
         assertThat(createdDate).isNotNull();
     }
+
+    // ======================
+    // Scenario: Create a note without a title
+    // ======================
+
+    @And("the user does not provide a title")
+    public void the_user_does_not_provide_a_title() {
+        context.setNoteTitle("");
+        context.setNoteTags(new String[]{"Homework"});
+    }
+
+    @When("the user tries to save the note without a title")
+    public void the_user_tries_to_save_the_note_without_a_title() throws Exception {
+        var requestBody = new CreateNoteRequest(
+                context.getNoteTitle(),
+                context.getNoteContent(),
+                context.getNoteTags()
+        );
+
+        mockMvc.perform(post("/notes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestBody)))
+                .andExpect(status().isCreated())
+                .andDo(result ->
+                        context.setResponse(new ResponseEntity<>(
+                                result.getResponse().getContentAsString(),
+                                HttpStatus.valueOf(result.getResponse().getStatus()))));
+    }
+
+    @Then("the system rejects the creation")
+    public void the_system_rejects_the_creation() {
+        assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @And("an error message indicates that the title is required")
+    public void an_error_message_indicates_that_the_title_is_required() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var message = json.get("message");
+
+        assertThat(message).isNotNull();
+        assertThat(message).isEqualTo("The title of the note cannot be empty.");
+    }
+
+
 }
