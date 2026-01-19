@@ -166,4 +166,23 @@ public class CreateNoteSteps {
         assertThat(message).isNotNull();
         assertThat(message.asString()).isEqualTo("The content of the note cannot exceed 500 characters.");
     }
+
+    // ======================
+    // Scenario: Create a note with content longer than 100 characters
+    // ======================
+
+    @And("the title exceeds 100 characters")
+    public void the_title_exceeds_characters() {
+        context.setNoteTitle("a".repeat(100+1));
+        context.setNoteTags(new String[]{"Homework"});
+    }
+
+    @And("an error message indicates the title length limit")
+    public void an_error_message_indicates_the_title_length_limit() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var message = json.get("message");
+
+        assertThat(message).isNotNull();
+        assertThat(message.asString()).isEqualTo("The title of the note cannot exceed 100 characters.");
+    }
 }

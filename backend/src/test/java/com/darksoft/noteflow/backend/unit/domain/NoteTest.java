@@ -63,4 +63,17 @@ public class NoteTest {
 
         assertEquals("The content of the note cannot exceed 500 characters.", exception.getMessage());
     }
+
+    @Test
+    @DisplayName("Create a note with title longer than 100 characters")
+    public void create_a_note_with_title_longer_than_100_characters(){
+        String title = "a".repeat(100+1);
+        String content = "Wow, the title is too long.";
+
+        Tag[] tags = new Tag[]{new Tag("Tag01")};
+
+        var exception = assertThrows(StringTooLongException.class, () -> new Note(title, content, tags));
+
+        assertEquals("The title of the note cannot exceed 100 characters.", exception.getMessage());
+    }
 }
