@@ -25,3 +25,10 @@ Feature: Create notes
     When the user saves the note
     Then the system rejects the creation
     And an error message indicates that the content is required
+
+  Scenario: Create a note with content longer than 500 characters
+    Given the user provides a valid title
+    And the content exceeds 500 characters
+    When the user saves the note
+    Then the system rejects the creation
+    And an error message indicates the content length limit

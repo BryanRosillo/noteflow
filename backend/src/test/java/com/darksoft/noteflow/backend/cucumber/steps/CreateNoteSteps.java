@@ -2,6 +2,7 @@ package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.CreateNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -147,4 +148,22 @@ public class CreateNoteSteps {
     }
 
 
+    // ======================
+    // Scenario: Create a note with content longer than 500 characters
+    // ======================
+
+    @And("the content exceeds 500 characters")
+    public void the_content_exceeds_500_haracters() {
+        context.setNoteContent("a".repeat(500+1));
+        context.setNoteTags(new String[]{"Homework"});
+    }
+
+    @And("an error message indicates the content length limit")
+    public void an_error_message_indicates_the_content_length_limit() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var message = json.get("message");
+
+        assertThat(message).isNotNull();
+        assertThat(message.asString()).isEqualTo("The content of the note cannot exceed 500 characters.");
+    }
 }
