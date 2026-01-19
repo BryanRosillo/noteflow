@@ -127,5 +127,24 @@ public class CreateNoteSteps {
         assertThat(message.asString()).isEqualTo("The title of the note cannot be empty.");
     }
 
+    // ======================
+    // Scenario: Create a note with empty content
+    // ======================
+
+    @And("the user does not provide a content")
+    public void the_user_does_not_provide_a_content(){
+        context.setNoteContent("");
+        context.setNoteTags(new String[]{"Homework"});
+    }
+
+    @And ("an error message indicates that the content is required")
+    public void an_error_message_indicates_that_the_content_is_required(){
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var message = json.get("message");
+
+        assertThat(message).isNotNull();
+        assertThat(message.asString()).isEqualTo("The content of the note cannot be empty.");
+    }
+
 
 }
