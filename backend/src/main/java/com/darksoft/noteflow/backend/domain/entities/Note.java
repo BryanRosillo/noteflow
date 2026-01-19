@@ -1,6 +1,7 @@
 package com.darksoft.noteflow.backend.domain.entities;
 
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
+import com.darksoft.noteflow.backend.domain.exceptions.EmptyContentException;
 import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
 
 import java.time.LocalDate;
@@ -16,6 +17,10 @@ public class Note {
 
         if(title.isBlank()){
             throw new EmptyTitleException("The title of the note cannot be empty.");
+        }
+
+        if(content.isBlank()){
+            throw new EmptyContentException("The content of the note cannot be empty.");
         }
 
         this.title = title;

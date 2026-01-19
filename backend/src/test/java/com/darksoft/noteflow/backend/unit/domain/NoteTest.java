@@ -1,6 +1,7 @@
 package com.darksoft.noteflow.backend.unit.domain;
 
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
+import com.darksoft.noteflow.backend.domain.exceptions.EmptyContentException;
 import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
