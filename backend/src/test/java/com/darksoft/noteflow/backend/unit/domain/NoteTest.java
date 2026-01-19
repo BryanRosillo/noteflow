@@ -49,4 +49,17 @@ public class NoteTest {
 
         assertEquals("The content of the note cannot be empty.", exception.getMessage());
     }
+
+    @Test
+    @DisplayName("Create a note with content longer than 500 characters")
+    public void create_a_note_with_content_longer_than_500_characters(){
+        String title = "Title01";
+        String content = "a".repeat(500+1);
+
+        Tag[] tags = new Tag[]{new Tag("Tag01")};
+
+        var exception = assertThrows(StringTooLong.class, () -> new Note(title, content, tags));
+
+        assertEquals("The content of the note cannot exceed 500 characters.", exception.getMessage());
+    }
 }
