@@ -3,6 +3,7 @@ package com.darksoft.noteflow.backend.unit.domain;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
 import com.darksoft.noteflow.backend.domain.exceptions.EmptyContentException;
 import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
+import com.darksoft.noteflow.backend.domain.exceptions.StringTooLongException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import com.darksoft.noteflow.backend.domain.entities.*;
@@ -58,7 +59,7 @@ public class NoteTest {
 
         Tag[] tags = new Tag[]{new Tag("Tag01")};
 
-        var exception = assertThrows(StringTooLong.class, () -> new Note(title, content, tags));
+        var exception = assertThrows(StringTooLongException.class, () -> new Note(title, content, tags));
 
         assertEquals("The content of the note cannot exceed 500 characters.", exception.getMessage());
     }

@@ -1,8 +1,6 @@
 package com.darksoft.noteflow.backend.domain.entities;
 
-import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
-import com.darksoft.noteflow.backend.domain.exceptions.EmptyContentException;
-import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
+import com.darksoft.noteflow.backend.domain.exceptions.*;
 
 import java.time.LocalDate;
 
@@ -21,6 +19,10 @@ public class Note {
 
         if(content.isBlank()){
             throw new EmptyContentException("The content of the note cannot be empty.");
+        }
+
+        if(content.trim().length()>500){
+            throw new StringTooLongException("The content of the note cannot exceed 500 characters.");
         }
 
         this.title = title;
