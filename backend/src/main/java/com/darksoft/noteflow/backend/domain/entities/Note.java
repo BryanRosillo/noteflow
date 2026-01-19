@@ -25,6 +25,10 @@ public class Note {
             throw new StringTooLongException("The content of the note cannot exceed 500 characters.");
         }
 
+        if(title.trim().length()>100){
+            throw new StringTooLongException("The title of the note cannot exceed 100 characters.");
+        }
+
         this.title = title;
         this.content = content;
         this.tags = tags;
