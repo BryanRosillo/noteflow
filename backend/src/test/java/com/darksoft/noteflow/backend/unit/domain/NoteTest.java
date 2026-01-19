@@ -36,4 +36,16 @@ public class NoteTest {
 
         assertEquals("The title of the note cannot be empty.", exception.getMessage());
     }
+
+    @Test
+    @DisplayName("Create a note without content")
+    public void create_a_note_without_content(){
+        String title = "Title01";
+        String content = " ";
+        Tag[] tags = new Tag[]{new Tag("Tag01")};
+
+        var exception = assertThrows(EmptyContentException.class, () -> new Note(title, content, tags));
+
+        assertEquals("The content of the note cannot be empty.", exception.getMessage());
+    }
 }
