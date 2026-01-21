@@ -185,4 +185,23 @@ public class CreateNoteSteps {
         assertThat(message).isNotNull();
         assertThat(message.asString()).isEqualTo("The title of the note cannot exceed 100 characters.");
     }
+
+    // ======================
+    // Scenario: Create a note with a tag longer than 30 characters
+    // ======================
+
+    @And("the tag provided exceeds 30 characters")
+    public void the_tag_provided_exceeds_characters() {
+        context.setNoteTags(new String[]{"a".repeat(30+1)});
+    }
+
+
+    @And("an error message indicates the tag length limit")
+    public void an_error_message_indicates_the_tag_length_limit() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var message = json.get("message");
+
+        assertThat(message).isNotNull();
+        assertThat(message.asString()).isEqualTo("The tag length cannot exceed 30 characters.");
+    }
 }

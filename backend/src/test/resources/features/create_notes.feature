@@ -39,3 +39,11 @@ Feature: Create notes
     When the user saves the note
     Then the system rejects the creation
     And an error message indicates the title length limit
+
+  Scenario: Create a note with a tag longer than 30 characters
+    Given the user provides a valid title
+    And the user provides valid content
+    And the tag provided exceeds 30 characters
+    When the user saves the note
+    Then the system rejects the creation
+    And an error message indicates the tag length limit
