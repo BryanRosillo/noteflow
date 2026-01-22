@@ -15,7 +15,7 @@ public class NoteTest {
 
     @Test
     @DisplayName("Create a valid note with tags")
-    public void create_a_valid_note_with_tags() throws DomainException {
+    public void create_a_valid_note_with_tags(){
         String title = "Do my Homework";
         String content = "I must end my math homework on typical operations.";
         Tag[] tags = new Tag[]{new Tag("Homework")};
@@ -25,6 +25,18 @@ public class NoteTest {
         assertEquals(title, note.getTitle());
         assertEquals(content, note.getContent());
         assertEquals(tags[0].getTagName(), note.getTags()[0].getTagName());
+    }
+
+    @Test
+    @DisplayName("Create a valid note without tags")
+    public void create_a_valid_note_without_tags(){
+        String title = "Do my Homework";
+        String content = "I must end my math homework on typical operations.";
+
+        Note note = new Note(title, content, null);
+
+        assertEquals(title, note.getTitle());
+        assertEquals(content, note.getContent());
     }
 
     @Test
