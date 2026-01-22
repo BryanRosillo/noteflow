@@ -2,7 +2,6 @@ package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.CreateNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

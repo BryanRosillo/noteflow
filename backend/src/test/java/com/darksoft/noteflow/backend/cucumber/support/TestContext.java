@@ -8,10 +8,15 @@ import org.springframework.stereotype.Component;
 @Scope("cucumber-glue")
 public class TestContext {
 
+    private int noteId;
     private String noteTitle;
     private String noteContent;
     private String[] noteTags;
     private ResponseEntity<String> response;
+
+    public int getNoteId() {return noteId;}
+
+    public void setNoteId(int noteId) {this.noteId = noteId;}
 
     public String getNoteTitle() {
         return noteTitle;
@@ -44,4 +49,5 @@ public class TestContext {
     public void setResponse(ResponseEntity<String> response) {
         this.response = response;
     }
+
 }
