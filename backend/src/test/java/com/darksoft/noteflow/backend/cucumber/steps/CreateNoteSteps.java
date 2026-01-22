@@ -87,6 +87,15 @@ public class CreateNoteSteps {
     }
 
     // ======================
+    // Scenario: Create a valid note without tags
+    // ======================
+
+    @And("the user does not provide tags")
+    public void the_user_does_not_provide_tags() {
+        context.setNoteTags(null);
+    }
+
+    // ======================
     // Scenario: Create a note without a title
     // ======================
 
@@ -204,4 +213,5 @@ public class CreateNoteSteps {
         assertThat(message).isNotNull();
         assertThat(message.asString()).isEqualTo("The tag length cannot exceed 30 characters.");
     }
+
 }

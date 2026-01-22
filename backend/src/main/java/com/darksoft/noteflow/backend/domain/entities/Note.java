@@ -13,11 +13,11 @@ public class Note {
 
     public Note(String title, String content, Tag[] tags){
 
-        if(title.isBlank()){
+        if(title.isBlank() || title==null){
             throw new EmptyTitleException("The title of the note cannot be empty.");
         }
 
-        if(content.isBlank()){
+        if(content.isBlank() || content==null){
             throw new EmptyContentException("The content of the note cannot be empty.");
         }
 

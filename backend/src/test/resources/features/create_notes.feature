@@ -12,6 +12,14 @@ Feature: Create notes
     And the note contains the assigned tags
     And the creation date is automatically set
 
+  Scenario: Create a valid note without tags
+    Given the user provides a valid title
+    And the user provides valid content
+    And the user does not provide tags
+    When the user saves the note
+    Then the note is created successfully
+    And the creation date is automatically set
+
   Scenario: Create a note without a title
     Given the user provides valid content
     And the user does not provide a title
