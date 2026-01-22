@@ -62,8 +62,9 @@ public class EditNoteSteps {
     public void the_user_updates_the_note() throws Exception {
         var request = new EditNoteRequest(
                 context.getNoteId(),
+                context.getNoteContent(),
                 context.getNoteTitle(),
-                context.getNoteContent()
+                null
         );
 
         mockMvc.perform(patch("/notes")

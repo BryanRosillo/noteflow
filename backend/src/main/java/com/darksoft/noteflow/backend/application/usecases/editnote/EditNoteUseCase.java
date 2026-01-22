@@ -21,15 +21,17 @@ public class EditNoteUseCase {
     }
 
     public Note execute(EditNoteCommand command){
-        Optional<Note> optionalNote = repository.findById(new NoteId(UUID.fromString(command.getNoteId())));
-        if(optionalNote.isEmpty()){
-            throw new NoteNotFoundException("The note was not found");
+
+        var noteForUpdate = repository.findById(new NoteId(UUID.fromString(command.getNoteId())))
+                .orElseThrow(()->new NoteNotFoundException("The note was not found"));
+
+        if(command.getNewContent()!=null){
+            noteForUpdate.changeContent(command.getNewContent());
         }
 
-        var noteForUpdate = optionalNote.get();
-
-        noteForUpdate.changeContent(command.getNewContent());
-        noteForUpdate.changeTitle(command.getNewTitle());
+        if(command.getNewTitle()!=null){
+            noteForUpdate.changeTitle(command.getNewTitle());
+        }
 
         Tag[] newTags=null;
         if(command.getNewTags()!=null){
