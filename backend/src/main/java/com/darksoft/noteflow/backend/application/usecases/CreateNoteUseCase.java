@@ -5,6 +5,7 @@ import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.entities.Tag;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
 import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
+import com.darksoft.noteflow.backend.domain.exceptions.StringTooLongException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class CreateNoteUseCase {
         this.repository = repository;
     }
 
-    public Note execute(CreateNoteCommand command) throws DomainException {
+    public Note execute(CreateNoteCommand command){
 
         var tags = Arrays.stream(command.getTags()).map(Tag::new).toArray(Tag[]::new);
 

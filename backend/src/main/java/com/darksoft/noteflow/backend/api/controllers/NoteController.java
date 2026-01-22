@@ -4,7 +4,6 @@ import com.darksoft.noteflow.backend.api.dtos.CreateNoteRequest;
 import com.darksoft.noteflow.backend.application.usecases.CreateNoteCommand;
 import com.darksoft.noteflow.backend.application.usecases.CreateNoteUseCase;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
-import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

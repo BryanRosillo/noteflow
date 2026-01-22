@@ -11,7 +11,7 @@ public class Note {
     private Tag[] tags;
     private LocalDate creationDate = LocalDate.now();
 
-    public Note(String title, String content, Tag[] tags) throws DomainException {
+    public Note(String title, String content, Tag[] tags){
 
         if(title.isBlank()){
             throw new EmptyTitleException("The title of the note cannot be empty.");
