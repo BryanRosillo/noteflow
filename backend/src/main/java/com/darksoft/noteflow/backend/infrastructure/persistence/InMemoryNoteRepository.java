@@ -2,6 +2,7 @@ package com.darksoft.noteflow.backend.infrastructure.persistence;
 
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
+import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
@@ -19,9 +20,8 @@ public class InMemoryNoteRepository implements INoteRepository {
     }
 
     @Override
-    public Optional<Note> findById(int id) {
-        return Optional.empty();
+    public Optional<Note> findById(NoteId id) {
+        return notes.stream().filter(note -> note.getId().equals(id)).findFirst();
     }
-
 
 }

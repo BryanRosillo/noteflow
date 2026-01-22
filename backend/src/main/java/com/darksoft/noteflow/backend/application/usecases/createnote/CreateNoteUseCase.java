@@ -3,9 +3,11 @@ package com.darksoft.noteflow.backend.application.usecases.createnote;
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.entities.Tag;
+import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 @Service
 public class CreateNoteUseCase {
@@ -24,6 +26,7 @@ public class CreateNoteUseCase {
         }
 
         Note note = new Note(
+                new NoteId(UUID.randomUUID()),
                 command.getTitle(),
                 command.getContent(),
                 tags

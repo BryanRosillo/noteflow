@@ -4,10 +4,12 @@ import com.darksoft.noteflow.backend.application.exceptions.NoteNotFoundExceptio
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.entities.Tag;
+import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class EditNoteUseCase {
@@ -19,21 +21,21 @@ public class EditNoteUseCase {
     }
 
     public Note execute(EditNoteCommand command){
-        Optional<Note> optionalNote = repository.findById(command.getNoteId());
+        Optional<Note> optionalNote = repository.findById(new NoteId(UUID.fromString(command.getNoteId())));
         if(optionalNote.isEmpty()){
             throw new NoteNotFoundException("The note was not found");
         }
 
         var noteForUpdate = optionalNote.get();
 
-        noteForUpdate.setContent(command.getNewContent());
-        noteForUpdate.setTitle(command.getNewTitle());
+        noteForUpdate.changeContent(command.getNewContent());
+        noteForUpdate.changeTitle(command.getNewTitle());
 
         Tag[] newTags=null;
         if(command.getNewTags()!=null){
             newTags = Arrays.stream(command.getNewTags()).map(Tag::new).toArray(Tag[]::new);
         }
-        noteForUpdate.setTags(newTags);
+        noteForUpdate.changeTags(newTags);
 
         return repository.save(noteForUpdate);
     }

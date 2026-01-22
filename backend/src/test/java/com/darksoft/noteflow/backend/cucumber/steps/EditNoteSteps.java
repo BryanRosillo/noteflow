@@ -1,5 +1,6 @@
 package com.darksoft.noteflow.backend.cucumber.steps;
 
+import com.darksoft.noteflow.backend.cucumber.support.CreateNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.EditNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
 import io.cucumber.java.en.And;
@@ -10,10 +11,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 public class EditNoteSteps {
     private final TestContext context;
@@ -31,9 +37,20 @@ public class EditNoteSteps {
     // ======================
 
     @Given("an existing note is stored in the system")
-    public void an_existing_note_is_stored_in_the_system() {
-        context.setNoteId(1);
-        context.setNoteContent("Content stored");
+    public void an_existing_note_is_stored_in_the_system() throws Exception {
+        CreateNoteRequest request = new CreateNoteRequest(
+                "BDD",
+                "Bryan, did you test the scenarios?"
+                , new String[]{"Test"}
+        );
+
+        MvcResult result = mockMvc.perform(post("/notes")
+                                            .contentType(MediaType.APPLICATION_JSON)
+                                            .content(objectMapper.writeValueAsString(request)))
+                                    .andReturn();
+
+        JsonNode json = objectMapper.readTree(result.getResponse().getContentAsString());
+        context.setNoteId(json.get("id").get("id").asString());
     }
 
     @And("the user provides a new title for the note")
@@ -94,7 +111,7 @@ public class EditNoteSteps {
 
     @Given("the note does not exist")
     public void the_note_does_not_exist() {
-        context.setNoteId(999999);
+        context.setNoteId(UUID.randomUUID().toString());
     }
 
     @Then("the system returns an error indicating the note was not found")
