@@ -20,8 +20,11 @@ public class CreateNoteUseCase {
     }
 
     public Note execute(CreateNoteCommand command){
+        Tag[] tags=null;
 
-        var tags = Arrays.stream(command.getTags()).map(Tag::new).toArray(Tag[]::new);
+        if(command.getTags()!=null){
+            tags = Arrays.stream(command.getTags()).map(Tag::new).toArray(Tag[]::new);
+        }
 
         Note note = new Note(
                 command.getTitle(),
