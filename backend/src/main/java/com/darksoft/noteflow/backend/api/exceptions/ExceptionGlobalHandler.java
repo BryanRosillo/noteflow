@@ -1,5 +1,6 @@
 package com.darksoft.noteflow.backend.api.exceptions;
 
+import com.darksoft.noteflow.backend.application.exceptions.ApplicationException;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionGlobalHandler {
 
-    @ExceptionHandler({DomainException.class})
-    public ResponseEntity<Object> domainExceptionHandler(DomainException e){
+    @ExceptionHandler({DomainException.class, ApplicationException.class})
+    public ResponseEntity<Object> domainExceptionHandler(RuntimeException e){
         log.warn("Problem handling the request.", e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("message", e.getMessage()));

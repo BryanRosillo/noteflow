@@ -1,11 +1,8 @@
-package com.darksoft.noteflow.backend.application.usecases;
+package com.darksoft.noteflow.backend.application.usecases.createnote;
 
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.entities.Tag;
-import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
-import com.darksoft.noteflow.backend.domain.exceptions.EmptyTitleException;
-import com.darksoft.noteflow.backend.domain.exceptions.StringTooLongException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

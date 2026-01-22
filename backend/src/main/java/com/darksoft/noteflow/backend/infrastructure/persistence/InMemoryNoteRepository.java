@@ -5,6 +5,7 @@ import com.darksoft.noteflow.backend.domain.entities.Note;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
+import java.util.Optional;
 
 @Repository
 public class InMemoryNoteRepository implements INoteRepository {
@@ -16,4 +17,11 @@ public class InMemoryNoteRepository implements INoteRepository {
         notes.add(note);
         return notes.getLast();
     }
+
+    @Override
+    public Optional<Note> findById(int id) {
+        return Optional.empty();
+    }
+
+
 }

@@ -1,6 +1,4 @@
-package com.darksoft.noteflow.backend.application.usecases;
-
-import com.darksoft.noteflow.backend.domain.entities.Tag;
+package com.darksoft.noteflow.backend.application.usecases.createnote;
 
 public class CreateNoteCommand {
     private String title;
