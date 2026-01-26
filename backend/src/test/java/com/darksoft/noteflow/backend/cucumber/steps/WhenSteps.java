@@ -1,8 +1,10 @@
 package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.CreateNoteRequest;
+import com.darksoft.noteflow.backend.cucumber.support.DeleteNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.EditNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.When;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,8 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class WhenSteps {
@@ -81,4 +82,20 @@ public class WhenSteps {
     }
 
 
+    @When("the user deletes the note")
+    public void the_user_deletes_the_note() throws Exception {
+        var request = new DeleteNoteRequest(
+                context.getNoteId()
+        );
+
+        mockMvc.perform(delete("/notes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andDo(result ->
+                        context.setResponse(new ResponseEntity<>(
+                                result.getResponse().getContentAsString(),
+                                HttpStatus.valueOf(result.getResponse().getStatus())
+                        )));
+
+    }
 }

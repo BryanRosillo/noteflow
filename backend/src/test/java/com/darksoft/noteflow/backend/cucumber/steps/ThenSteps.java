@@ -1,6 +1,7 @@
 package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Then;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class ThenSteps {
 
     @Then("the note is updated successfully")
     public void the_note_is_updated_successfully() {
-        AssertionsForClassTypes.assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Then("the system returns an error indicating the note was not found")
@@ -43,4 +44,8 @@ public class ThenSteps {
     }
 
 
+    @Then("the note is permanently removed from the system")
+    public void the_Note_is_permanently_removed_from_the_system() {
+        assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
