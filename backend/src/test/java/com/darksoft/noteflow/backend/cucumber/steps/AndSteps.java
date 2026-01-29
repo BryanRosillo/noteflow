@@ -1,6 +1,7 @@
 package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import org.assertj.core.api.AssertionsForClassTypes;
 import tools.jackson.databind.ObjectMapper;
@@ -143,6 +144,14 @@ public class AndSteps {
     public void the_content_of_the_note_has_been_updated() {
         var json = objectMapper.readTree(context.getResponse().getBody());
         var content = json.get("content");
-        AssertionsForClassTypes.assertThat(content.asString()).isEqualTo(context.getNoteContent());
+        assertThat(content.asString()).isEqualTo(context.getNoteContent());
+    }
+
+    @And("each note includes its tags")
+    public void each_note_includes_its_tags() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        var note01 = json.get(0);
+
+        assertThat(note01.get("tags")).isNotNull();
     }
 }

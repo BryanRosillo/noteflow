@@ -2,6 +2,7 @@ package com.darksoft.noteflow.backend.cucumber.steps;
 
 import com.darksoft.noteflow.backend.cucumber.support.CreateNoteRequest;
 import com.darksoft.noteflow.backend.cucumber.support.TestContext;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -53,4 +54,33 @@ public class GivenSteps {
     }
 
 
+    @Given("notes exist in the system")
+    public void notes_exist_in_the_system() throws Exception {
+        var createNoteRequest01 = new CreateNoteRequest(
+                "BDD",
+                "Bryan, did you test the scenarios?"
+                , new String[]{"Test"}
+        );
+
+        var createNoteRequest02 = new CreateNoteRequest(
+                "Deploy",
+                "Bryan, where NoteFlow will be deployed?"
+                , new String[]{"Deploy"}
+        );
+
+         mockMvc.perform(post("/notes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createNoteRequest01)))
+                .andReturn();
+
+        mockMvc.perform(post("/notes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createNoteRequest02)))
+                .andReturn();
+    }
+
+    @Given("no notes exist in the system")
+    public void no_notes_exist_in_the_system() {
+        // The system must be completely clean, therefore, no prior action is performed.
+    }
 }

@@ -39,13 +39,26 @@ public class ThenSteps {
         var json = objectMapper.readTree(context.getResponse().getBody());
         var message = json.get("message");
 
-        AssertionsForClassTypes.assertThat(message.asString()).isEqualTo("The note was not found");
-        AssertionsForClassTypes.assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(message.asString()).isEqualTo("The note was not found");
+        assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
 
     @Then("the note is permanently removed from the system")
     public void the_Note_is_permanently_removed_from_the_system() {
         assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Then("the system returns all notes")
+    public void the_system_returns_all_notes() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        assertThat(json.size()).isEqualTo(2);
+        assertThat(json.isArray());
+    }
+
+    @Then("the system returns an empty list")
+    public void the_system_returns_an_empty_list() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+        assertThat(json.size()).isEqualTo(0);
     }
 }
