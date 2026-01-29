@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryNoteRepository implements INoteRepository {
@@ -21,7 +22,14 @@ public class InMemoryNoteRepository implements INoteRepository {
 
     @Override
     public Optional<Note> findById(NoteId id) {
-        return notes.stream().filter(note -> note.getId().equals(id)).findFirst();
+        return notes.stream()
+                .filter(note -> note.getId().equals(id))
+                .findFirst();
+    }
+
+    @Override
+    public void deleteById(NoteId id) {
+        notes.removeIf(note -> note.getId().equals(id));
     }
 
 }

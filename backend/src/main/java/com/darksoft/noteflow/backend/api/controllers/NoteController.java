@@ -1,7 +1,10 @@
 package com.darksoft.noteflow.backend.api.controllers;
 
 import com.darksoft.noteflow.backend.api.dtos.CreateNoteRequest;
+import com.darksoft.noteflow.backend.api.dtos.DeleteNoteRequest;
 import com.darksoft.noteflow.backend.application.usecases.createnote.*;
+import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteCommand;
+import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteUseCase;
 import com.darksoft.noteflow.backend.application.usecases.editnote.EditNoteCommand;
 import com.darksoft.noteflow.backend.application.usecases.editnote.EditNoteUseCase;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
@@ -14,14 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/notes", produces = "application/json")
 public class NoteController {
 
+    @Autowired
     private CreateNoteUseCase createUseCase;
+
+    @Autowired
     private EditNoteUseCase editNoteUseCase;
 
     @Autowired
-    public NoteController(CreateNoteUseCase createUseCase, EditNoteUseCase editNoteUseCase){
-        this.createUseCase = createUseCase;
-        this.editNoteUseCase = editNoteUseCase;
-    }
+    private DeleteNoteUseCase deleteNoteUseCase;
+
 
     @PostMapping
     public ResponseEntity<Object> createNote(@RequestBody CreateNoteRequest request){
@@ -46,5 +50,12 @@ public class NoteController {
 
         var noteUpdated = this.editNoteUseCase.execute(command);
         return ResponseEntity.ok(noteUpdated);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Object> deleteNote(@RequestBody DeleteNoteRequest request){
+        var command = new DeleteNoteCommand(request.getNoteId());
+        this.deleteNoteUseCase.execute(command);
+        return ResponseEntity.ok().build();
     }
 }

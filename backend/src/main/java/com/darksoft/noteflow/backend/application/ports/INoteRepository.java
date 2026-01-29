@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface INoteRepository {
     Note save (Note note);
     Optional<Note> findById(NoteId id);
+    void deleteById (NoteId id);
 }
