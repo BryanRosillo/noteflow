@@ -2,6 +2,7 @@ package com.darksoft.noteflow.backend.api.controllers;
 
 import com.darksoft.noteflow.backend.api.dtos.CreateNoteRequest;
 import com.darksoft.noteflow.backend.api.dtos.DeleteNoteRequest;
+import com.darksoft.noteflow.backend.api.dtos.EditNoteRequest;
 import com.darksoft.noteflow.backend.application.usecases.createnote.*;
 import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteCommand;
 import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteUseCase;
@@ -40,7 +41,7 @@ public class NoteController {
     }
 
     @PatchMapping
-    public ResponseEntity<Object> editNote(@RequestBody EditNoteCommand request){
+    public ResponseEntity<Object> editNote(@RequestBody EditNoteRequest request){
         var command = new EditNoteCommand(
                 request.getNoteId(),
                 request.getNewContent(),
