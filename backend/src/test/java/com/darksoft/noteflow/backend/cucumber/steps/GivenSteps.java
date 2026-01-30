@@ -62,7 +62,7 @@ public class GivenSteps {
                 , new String[]{"Test"}
         );
 
-        for (int i = 1; i < 20 ; i++) {
+        for (int i = 1; i <=20 ; i++) {
             mockMvc.perform(post("/notes")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))

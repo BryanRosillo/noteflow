@@ -8,6 +8,7 @@ import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteC
 import com.darksoft.noteflow.backend.application.usecases.deletenote.DeleteNoteUseCase;
 import com.darksoft.noteflow.backend.application.usecases.editnote.EditNoteCommand;
 import com.darksoft.noteflow.backend.application.usecases.editnote.EditNoteUseCase;
+import com.darksoft.noteflow.backend.application.usecases.listnotes.ListNotesUseCase;
 import com.darksoft.noteflow.backend.domain.exceptions.DomainException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class NoteController {
 
     @Autowired
     private DeleteNoteUseCase deleteNoteUseCase;
+
+    @Autowired
+    private ListNotesUseCase listNotesUseCase;
 
 
     @PostMapping
@@ -58,5 +62,10 @@ public class NoteController {
         var command = new DeleteNoteCommand(request.getNoteId());
         this.deleteNoteUseCase.execute(command);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<Object> listNotes(@RequestParam int size, @RequestParam int page){
+        return ResponseEntity.ok(this.listNotesUseCase.execute(size,page));
     }
 }

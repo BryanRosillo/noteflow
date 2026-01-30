@@ -52,15 +52,17 @@ public class ThenSteps {
     @Then("the system returns all notes in 2 pages with 10 elements each one")
     public void the_system_returns_all_notes_in_2_pages_with_10_elements_each_one() {
         var json = objectMapper.readTree(context.getResponse().getBody());
-        var numPages = json.get("pages").asInt();
+        var notes = json.get("notes");
+        var totalPages = json.get("totalPages").asInt();
 
-        assertThat(json.size()).isEqualTo(10);
-        assertThat(numPages).isEqualTo(2);
+        assertThat(notes.size()).isEqualTo(10);
+        assertThat(totalPages).isEqualTo(2);
     }
 
     @Then("the system returns an empty list")
     public void the_system_returns_an_empty_list() {
         var json = objectMapper.readTree(context.getResponse().getBody());
-        assertThat(json.size()).isEqualTo(0);
+        var notes = json.get("notes");
+        assertThat(notes.size()).isEqualTo(0);
     }
 }

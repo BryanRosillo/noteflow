@@ -6,6 +6,7 @@ import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,25 @@ public class InMemoryNoteRepository implements INoteRepository {
     @Override
     public void deleteById(NoteId id) {
         notes.removeIf(note -> note.getId().equals(id));
+    }
+
+    @Override
+    public Map<String, Object> findAll(int size, int page) {
+        var elements = notes.stream()
+                .skip((long) page * size)
+                .limit(size)
+                .toList();
+
+        var totalElements = notes.size();
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+
+        return Map.of("notes",elements,
+                "total-pages",totalPages,
+                "total-elements",totalElements);
+    }
+
+    public void clear(){
+        notes.clear();
     }
 
 }

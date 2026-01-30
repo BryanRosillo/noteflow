@@ -155,8 +155,10 @@ public class AndSteps {
     @And("in the response will be the information about pages and total elements")
     public void in_the_response_will_be_the_information_about_pages_and_total_elements() {
         var json = objectMapper.readTree(context.getResponse().getBody());
+        var totalPages = json.get("totalPages").asInt();
+        var totalElements = json.get("totalElements").asInt();
 
-        assertThat(json.get("pages")).isNotNull();
-        assertThat(json.get("total")).isNotNull();
+        assertThat(totalElements).isEqualTo(20);
+        assertThat(totalPages).isEqualTo(2);
     }
 }
