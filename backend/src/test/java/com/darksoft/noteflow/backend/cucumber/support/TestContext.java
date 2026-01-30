@@ -12,6 +12,7 @@ public class TestContext {
     private String noteTitle;
     private String noteContent;
     private String[] noteTags;
+    private int sizePage;
     private ResponseEntity<String> response;
 
     public String getNoteId() {return noteId;}
@@ -50,4 +51,11 @@ public class TestContext {
         this.response = response;
     }
 
+    public int getSizePage() {
+        return sizePage;
+    }
+
+    public void setSizePage(int sizePage) {
+        this.sizePage = sizePage;
+    }
 }

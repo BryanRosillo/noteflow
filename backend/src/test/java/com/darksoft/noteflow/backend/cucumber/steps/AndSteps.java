@@ -147,11 +147,16 @@ public class AndSteps {
         assertThat(content.asString()).isEqualTo(context.getNoteContent());
     }
 
-    @And("each note includes its tags")
-    public void each_note_includes_its_tags() {
-        var json = objectMapper.readTree(context.getResponse().getBody());
-        var note01 = json.get(0);
+    @And("the user provides a limit of 10 notes per page")
+    public void the_user_provides_a_limit_of_10_notes_per_page() {
+        context.setSizePage(10);
+    }
 
-        assertThat(note01.get("tags")).isNotNull();
+    @And("in the response will be the information about pages and total elements")
+    public void in_the_response_will_be_the_information_about_pages_and_total_elements() {
+        var json = objectMapper.readTree(context.getResponse().getBody());
+
+        assertThat(json.get("pages")).isNotNull();
+        assertThat(json.get("total")).isNotNull();
     }
 }

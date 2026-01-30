@@ -103,7 +103,7 @@ public class WhenSteps {
 
     @When("the user requests the list of notes")
     public void the_user_requests_the_list_of_notes() throws Exception {
-        mockMvc.perform(get("/notes"))
+        mockMvc.perform(get("/notes?size="+context.getSizePage()+"&page=0"))
                 .andDo(result ->
                         context.setResponse(new ResponseEntity<>(
                                 result.getResponse().getContentAsString(),

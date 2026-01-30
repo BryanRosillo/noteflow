@@ -49,11 +49,13 @@ public class ThenSteps {
         assertThat(context.getResponse().getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
-    @Then("the system returns all notes")
-    public void the_system_returns_all_notes() {
+    @Then("the system returns all notes in 2 pages with 10 elements each one")
+    public void the_system_returns_all_notes_in_2_pages_with_10_elements_each_one() {
         var json = objectMapper.readTree(context.getResponse().getBody());
-        assertThat(json.size()).isEqualTo(2);
-        assertThat(json.isArray());
+        var numPages = json.get("pages").asInt();
+
+        assertThat(json.size()).isEqualTo(10);
+        assertThat(numPages).isEqualTo(2);
     }
 
     @Then("the system returns an empty list")

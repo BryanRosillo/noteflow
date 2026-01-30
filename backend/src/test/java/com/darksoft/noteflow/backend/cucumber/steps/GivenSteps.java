@@ -54,33 +54,26 @@ public class GivenSteps {
     }
 
 
-    @Given("notes exist in the system")
+    @Given("20 notes exist in the system")
     public void notes_exist_in_the_system() throws Exception {
-        var createNoteRequest01 = new CreateNoteRequest(
-                "BDD",
-                "Bryan, did you test the scenarios?"
+        var request = new CreateNoteRequest(
+                "TitleTest",
+                "Bryan, did you forget the pagination?"
                 , new String[]{"Test"}
         );
 
-        var createNoteRequest02 = new CreateNoteRequest(
-                "Deploy",
-                "Bryan, where NoteFlow will be deployed?"
-                , new String[]{"Deploy"}
-        );
-
-         mockMvc.perform(post("/notes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(createNoteRequest01)))
-                .andReturn();
-
-        mockMvc.perform(post("/notes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(createNoteRequest02)))
-                .andReturn();
+        for (int i = 1; i < 20 ; i++) {
+            mockMvc.perform(post("/notes")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(request)))
+                    .andReturn();
+        }
     }
 
     @Given("no notes exist in the system")
     public void no_notes_exist_in_the_system() {
         // The system must be completely clean, therefore, no prior action is performed.
+        // We only will specify the size page.
+        context.setSizePage(10);
     }
 }

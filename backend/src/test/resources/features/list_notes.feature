@@ -4,10 +4,11 @@ Feature: List notes
   So that I can review my stored information
 
   Scenario: List existing notes
-    Given notes exist in the system
+    Given 20 notes exist in the system
+    And the user provides a limit of 10 notes per page
     When the user requests the list of notes
-    Then the system returns all notes
-    And each note includes its tags
+    Then the system returns all notes in 2 pages with 10 elements each one
+    And in the response will be the information about pages and total elements
 
   Scenario: List notes when none exist
     Given no notes exist in the system
