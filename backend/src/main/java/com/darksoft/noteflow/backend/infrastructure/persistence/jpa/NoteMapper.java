@@ -5,6 +5,8 @@ import com.darksoft.noteflow.backend.domain.entities.Tag;
 import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class NoteMapper {
@@ -14,7 +16,11 @@ public class NoteMapper {
                 note.getId().id(),
                 note.getContent(),
                 note.getTitle(),
-                Arrays.stream(note.getTags()).map(Tag::getTagName).collect(Collectors.toSet())
+                Optional.ofNullable(note.getTags())
+                        .map(tags -> Arrays.stream(tags)
+                                .map(Tag::getTagName)
+                                .collect(Collectors.toSet()))
+                        .orElse(Collections.emptySet())
         );
     }
 
@@ -23,9 +29,11 @@ public class NoteMapper {
                 new NoteId(entity.getId()),
                 entity.getTitle(),
                 entity.getContent(),
-                entity.getTags().stream().toArray(Tag[]::new)
+                Optional.ofNullable(entity.getTags())
+                        .orElse(Collections.emptySet())
+                        .stream()
+                        .toArray(Tag[]::new)
         );
-
     }
 
 

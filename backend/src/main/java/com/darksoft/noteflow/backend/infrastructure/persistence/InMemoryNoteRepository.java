@@ -3,6 +3,7 @@ package com.darksoft.noteflow.backend.infrastructure.persistence;
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
+@Profile("in-memory")
 public class InMemoryNoteRepository implements INoteRepository {
 
     private LinkedList<Note> notes = new LinkedList<>();

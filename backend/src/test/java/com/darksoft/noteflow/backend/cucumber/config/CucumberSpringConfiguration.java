@@ -8,6 +8,6 @@ import org.springframework.test.context.ActiveProfiles;
 @CucumberContextConfiguration
 @AutoConfigureMockMvc
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("in-memory")
 public class CucumberSpringConfiguration {
 }

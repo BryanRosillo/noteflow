@@ -3,6 +3,7 @@ package com.darksoft.noteflow.backend.infrastructure.persistence.jpa;
 import com.darksoft.noteflow.backend.application.ports.INoteRepository;
 import com.darksoft.noteflow.backend.domain.entities.Note;
 import com.darksoft.noteflow.backend.domain.valueobjects.NoteId;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
+@Profile("db")
 public class DataBaseNoteRepository implements INoteRepository {
 
     private final JpaNoteRepository repository;
